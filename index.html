@@ -358,10 +358,10 @@
                         $150</option>
                     <option value="1 hour Consultancy|20000" data-duration-minutes="60"
                         data-service-variation-id="LX4U7FFQCOEU2W5KSSYLWQDS">1 hour Consultancy - 1 hour $200</option>
-                </select> 
+                </select>
             </div>
 
-            <!-- "Check Availability" BUTTON -->    
+            <!-- "Check Availability" BUTTON -->
             <div class="form-group hidden" id="check-availability-group">
                 <button type="button" id="check-availability-btn" class="btn btn-primary"
                     style="width: 100%; background: #3498db; box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);">
@@ -524,21 +524,22 @@
             }
         }
 
-
         function toggleBookingFields() {
             const isBooking = wantToBookCheckbox.checked;
 
-            // *** NEW: Make email required and update placeholder based on checkbox state ***
+            // Make email required and update placeholder
             emailInput.required = isBooking;
             emailInput.placeholder = isBooking
                 ? "Email is required for booking"
                 : "your.email@example.com";
 
+            // Dynamically set required for team member
+            teamMemberSelect.required = isBooking;
+
             if (isBooking) {
                 teamMemberGroup.classList.remove("hidden");
                 bookingDateGroup.classList.remove("hidden");
                 productGroup.classList.remove("hidden");
-                // Show check availability button only after all fields are visible
                 checkAvailabilityGroup.classList.remove("hidden");
             } else {
                 teamMemberGroup.classList.add("hidden");
@@ -560,6 +561,42 @@
                 requiredLabels.forEach(el => el.classList.remove('required-field-label'));
             }
         }
+
+        // function toggleBookingFields() {
+        //     const isBooking = wantToBookCheckbox.checked;
+
+        //     // *** NEW: Make email required and update placeholder based on checkbox state ***
+        //     emailInput.required = isBooking;
+        //     emailInput.placeholder = isBooking
+        //         ? "Email is required for booking"
+        //         : "your.email@example.com";
+
+        //     if (isBooking) {
+        //         teamMemberGroup.classList.remove("hidden");
+        //         bookingDateGroup.classList.remove("hidden");
+        //         productGroup.classList.remove("hidden");
+        //         // Show check availability button only after all fields are visible
+        //         checkAvailabilityGroup.classList.remove("hidden");
+        //     } else {
+        //         teamMemberGroup.classList.add("hidden");
+        //         bookingDateGroup.classList.add("hidden");
+        //         checkAvailabilityGroup.classList.add("hidden");
+        //         bookingTimeGroup.classList.add("hidden");
+        //         productGroup.classList.add("hidden");
+
+        //         // Clear field values
+        //         teamMemberSelect.value = "";
+        //         bookingDateInput.value = "";
+        //         bookingTimeSelect.innerHTML = '<option value="" disabled selected>-- Check availability first --</option>';
+        //         productSelect.value = "";
+
+        //         // Clear any error states
+        //         const errorElements = document.querySelectorAll('.error-border');
+        //         errorElements.forEach(el => el.classList.remove('error-border'));
+        //         const requiredLabels = document.querySelectorAll('.required-field-label');
+        //         requiredLabels.forEach(el => el.classList.remove('required-field-label'));
+        //     }
+        // }
 
         // NEW: Clear error states when user makes changes to required fields
         [teamMemberSelect, bookingDateInput, productSelect].forEach(field => {
