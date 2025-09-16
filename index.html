@@ -394,6 +394,9 @@
             <div id="response" class="response-box" style="display: none"></div>
         </form>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.43/moment-timezone-with-data.min.js"></script>
 
     <script>
         const form = document.getElementById("call-form");
@@ -500,10 +503,14 @@
                     data.availabilities.forEach(slot => {
                         const option = document.createElement('option');
                         option.value = slot.start_at;
-                        option.textContent = slot.start_at.split('T')[1].replace('Z', '');
+                        // Show date and time in Toronto timezone
+                        const torontoTime = moment.utc(slot.start_at).tz("America/Toronto").format("YYYY-MM-DD hh:mm A");
+                        option.textContent = torontoTime + " (Toronto)";
                         bookingTimeSelect.appendChild(option);
                     });
                     bookingTimeGroup.classList.remove("hidden");
+
+
 
                     // Clear any error messages since availability check was successful
                     if (responseBox.className.includes('error')) {
